@@ -1,3 +1,5 @@
+## Домашнее задание в папке [`api-tests`](./api-tests/)
+
 # Pizza Delivery — учебный проект (DDD + Onion/Clean + Ports & Adapters)
 
 **Цель:** показать границы слоёв, направление зависимостей, порты/адаптеры и тестирование use case без Spring.

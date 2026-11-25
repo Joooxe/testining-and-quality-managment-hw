@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pizza-delivery:responses",
+  "$defs": {
+    "address": {
+      "type": "object",
+      "required": ["city", "street", "house", "apartment", "postcode"],
+      "properties": {
+        "city": {"type": "string"},
+        "street": {"type": "string"},
+        "house": {"type": "string"},
+        "apartment": {"type": ["string", "null"]},
+        "postcode": {"type": "string"}
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": ["name", "size", "qty"],
+      "properties": {
+        "name": {"type": "string"},
+        "size": {"enum": ["SMALL", "MEDIUM", "LARGE"]},
+        "qty": {"type": "integer", "minimum": 1}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["id", "status", "totalAmount", "currency", "deliveryZone"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "status": {
+          "enum": ["CREATED", "PAID", "COOKING", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"]
+        },
+        "totalAmount": {"type": "number"},
+        "currency": {"type": "string"},
+        "deliveryZone": {"type": "string"}
+      }
+    },
+    "order": {
+      "$ref": "#/$defs/summary",
+      "required": ["address", "items", "cancellationReason"],
+      "properties": {
+        "address": {"$ref": "#/$defs/address"},
+        "items": {"type": "array", "items": {"$ref": "#/$defs/item"}},
+        "cancellationReason": {"type": ["string", "null"]}
+      }
+    },
+    "list": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/summary"}
+    },
+    "error": {
+      "type": "object",
+      "required": ["timestamp", "status", "error", "message", "path"],
+      "properties": {
+        "timestamp": {"type": "string", "format": "date-time"},
+        "status": {"type": "integer"},
+        "error": {"type": "string", "minLength": 1},
+        "message": {"type": "string", "minLength": 1},
+        "path": {"type": "string"}
+      }
+    }
+  }
+}
