@@ -45,6 +45,8 @@ xdg-open allure-report/index.html
 
 ![Сводка Allure по 13 API-тестам](allure-overview.png)
 
+Тест № 13 отправляет оборванный JSON в `POST /orders` и ожидает `400 Bad Request`. Сейчас API возвращает `500 Internal Server Error`, поэтому `go test` завершается с ненулевым кодом.
+
 ## Сценарии
 
 | № | Действие                                                                                                         | Ожидаемый результат |
